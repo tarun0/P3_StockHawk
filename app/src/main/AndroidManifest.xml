@@ -47,6 +47,7 @@
             android:label="@string/widget_title">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.sam_chordas.android.stockhawk.ACTION_DATA_UPDATED"/>
             </intent-filter>
 
             <meta-data
@@ -64,15 +65,6 @@
             android:label="@string/title_activity_details_chart"
             android:parentActivityName=".ui.MyStocksActivity"
             android:theme="@style/DetailsChartTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.sam_chordas.android.stockhawk.ui.MyStocksActivity" />
-        </activity>
-        <activity
-            android:name=".ui.ChartActivity"
-            android:label="@string/title_activity_chart"
-            android:theme="@style/DetailsChartTheme"
-            android:parentActivityName=".ui.MyStocksActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sam_chordas.android.stockhawk.ui.MyStocksActivity" />

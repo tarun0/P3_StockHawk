@@ -3,19 +3,23 @@ package model;
 /**
  * Created by Tarun on 10/04/2016.
  */
-public class RetrievedQuoteHistory {
+public class Quote {
     private String Symbol;
-    private String Date;
     private double High;
     private double Low;
-    private double Close;
+    private float Close;
     private long Volume;
+    private String Date;
 
     public String getSymbol() {
         return Symbol;
     }
 
+    public float getClose() {
+        return Close;
+    }
+
     public String getDate() {
-        return this.Date;
+        return Date;
     }
 }

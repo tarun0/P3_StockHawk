@@ -25,7 +25,6 @@
     parent="@android:style/Theme.Holo.Light.DarkActionBar">
     <item name="colorPrimary">@color/material_blue_500</item>
     <item name="colorPrimaryDark">@color/material_blue_700</item>
-    <item name="android:windowBackground">@color/FF303030</item>
     <item name="android:actionBarStyle">@style/DetailsActionBar</item>
   </style>
 

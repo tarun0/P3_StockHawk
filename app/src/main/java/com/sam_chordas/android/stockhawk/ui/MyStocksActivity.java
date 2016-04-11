@@ -138,16 +138,16 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                     toast.show();
                     return;
                   } else {
-                    // Add the stock to DB
                     if (!validateInput(input)) {
                       //Toast.makeText(MyStocksActivity.this, "Only letters please :)", Toast.LENGTH_SHORT).show();
                       final AlertDialog.Builder alert = new AlertDialog.Builder(MyStocksActivity.this);
-                      alert.setMessage(R.string.invalid_stock_add_input).setTitle(R.string.title).create().show();
+                      alert.setMessage(R.string.invalid_stock_add_input).setTitle(R.string.message).create().show();
                     } else {
+                      // Add the stock to DB
                       mServiceIntent.putExtra("tag", "add");
                       mServiceIntent.putExtra("symbol", input.toString().toUpperCase());
                       startService(mServiceIntent);
-                    }
+                      }
                   }
                 }
               })

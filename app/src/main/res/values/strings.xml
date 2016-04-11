@@ -9,7 +9,7 @@
     <string name="content_test">Search for a Stock Symbol</string>
     <string name="input_hint" translatable="false">FB</string>
     <string name="input_prefill"></string>
-    <string name="widget_title">Today\'s Market</string>
+    <string name="widget_title">1Today\'s Market</string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
 
     <!--Content Description related strings -->
@@ -26,4 +26,8 @@ Switch on the internet and try again.</string>
     <string name="invalid_stock_add_input">Only words (without spaces) are accepted. Digits and Special Characters are not allowed.</string>
     <string name="title_activity_details_chart">DetailsChart</string>
     <string name="title_activity_chart">ChartActivity</string>
+    <string name="pinch_to_zoom">Pinch to zoom is enabled!</string>
+    <string name="retrieve_chart_network_issue">Something went wrong! Couldn\'t fetch historical data.</string>
+    <string name="progress_dialog_message">Fetching stock history data.</string>
+    <string name="all_stocks_deleted">All stocks deleted. Nothing to show. Click on + button to add new stock.</string>
 </resources>

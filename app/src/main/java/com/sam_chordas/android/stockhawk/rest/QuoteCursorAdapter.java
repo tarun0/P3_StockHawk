@@ -1,6 +1,7 @@
 package com.sam_chordas.android.stockhawk.rest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -28,7 +29,7 @@ import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
  */
 public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAdapter.ViewHolder>
     implements ItemTouchHelperAdapter{
-
+  public static final String ACTION_DATA_UPDATED = "com.sam_chordas.android.stockhawk.ACTION_DATA_UPDATED";
   private static Context mContext;
   private static Typeface robotoLight;
   private boolean isPercent;
@@ -81,10 +82,12 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
     String symbol = c.getString(c.getColumnIndex(QuoteColumns.SYMBOL));
     mContext.getContentResolver().delete(QuoteProvider.Quotes.withSymbol(symbol), null, null);
     notifyItemRemoved(position);
-    Log.e("QUOTECURSORADAPTER","REMOVED "+position);
 
+    Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED);
+    mContext.sendBroadcast(dataUpdatedIntent);
+    
     if (c.getCount() == 1) {
-      Toast.makeText(mContext, "LOL gye!", Toast.LENGTH_SHORT).show();
+      Toast.makeText(mContext, R.string.all_stocks_deleted, Toast.LENGTH_SHORT).show();
       MyStocksActivity.hasSavedData = false;
     }
   }
