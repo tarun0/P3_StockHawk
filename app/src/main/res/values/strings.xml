@@ -30,4 +30,5 @@ Switch on the internet and try again.</string>
     <string name="retrieve_chart_network_issue">Something went wrong! Couldn\'t fetch historical data.</string>
     <string name="progress_dialog_message">Fetching stock history data.</string>
     <string name="all_stocks_deleted">All stocks deleted. Nothing to show. Click on + button to add new stock.</string>
+    <string name="no_history_data_available">Sorry! No history data for this stock is available on the server.</string>
 </resources>

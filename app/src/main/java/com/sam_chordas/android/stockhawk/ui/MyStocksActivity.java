@@ -105,7 +105,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this,
             new RecyclerViewItemClickListener.OnItemClickListener() {
               @Override public void onItemClick(View v, int position) {
-                //TODO:
                 mCursor.moveToPosition(position);
                 Intent intent = new Intent(MyStocksActivity.this, DetailsChartActivity.class);
                 intent.putExtra("symbol",mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL)));

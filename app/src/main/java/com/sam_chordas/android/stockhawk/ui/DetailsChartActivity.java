@@ -74,28 +74,42 @@ public class DetailsChartActivity extends Activity {
             @Override
             public void success(RequestModel retrievedResponse, Response response) {
                 dialog.dismiss();
-                getActionBar().setTitle(retrievedResponse.getQuery().getResults().getQuote().get(0).getSymbol());
-                Toast.makeText(getApplicationContext(), R.string.pinch_to_zoom, Toast.LENGTH_SHORT).show();
-                int total = retrievedResponse.getQuery().getCount();
-                prices = new ArrayList<>();
-                dates = new ArrayList<String>();
+                if (retrievedResponse.getQuery().getCount() > 0) {
+                    getActionBar().setTitle(retrievedResponse.getQuery().getResults().getQuote().get(0).getSymbol());
+                    Toast.makeText(getApplicationContext(), R.string.pinch_to_zoom, Toast.LENGTH_SHORT).show();
+                    int total = retrievedResponse.getQuery().getCount();
+                    prices = new ArrayList<>();
+                    dates = new ArrayList<String>();
 
-                ArrayList<Quote> quoteList = retrievedResponse.getQuery().getResults().getQuote();
-                entries = new ArrayList<BarEntry>();
+                    ArrayList<Quote> quoteList = retrievedResponse.getQuery().getResults().getQuote();
+                    entries = new ArrayList<BarEntry>();
 
-                for (int i = 0; i < total; i++) {
-                    prices.add(quoteList.get(i).getClose());
-                    dates.add(quoteList.get(i).getDate());
-                    entries.add(new BarEntry(prices.get(i), i));
+                    for (int i = 0; i < total; i++) {
+                        prices.add(quoteList.get(i).getClose());
+                        dates.add(quoteList.get(i).getDate());
+                        entries.add(new BarEntry(prices.get(i), i));
+                    }
+
+                    barDataSet = new BarDataSet(entries, "Close Price");
+                    barData = new BarData(dates, barDataSet);
+
+                    chart.setData(barData);
+                    chart.setDescription("Close price vs Date");
+                    chart.animateY(1500);
+                    chart.invalidate();
                 }
-
-                barDataSet = new BarDataSet(entries, "Close Price");
-                barData = new BarData(dates, barDataSet);
-
-                chart.setData(barData);
-                chart.setDescription("Close price vs Date");
-                chart.animateY(1500);
-                chart.invalidate();
+                else {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(DetailsChartActivity.this);
+                    alertDialog.setTitle(R.string.message).setMessage(R.string.no_history_data_available).setCancelable(false)
+                           .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                               @Override
+                               public void onClick(DialogInterface dialogInterface, int i) {
+                                   Intent intent = new Intent(getApplicationContext(), MyStocksActivity.class);
+                                   intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                   startActivity(intent);
+                               }
+                           }) .show();
+                }
             }
 
             @Override
@@ -103,10 +117,11 @@ public class DetailsChartActivity extends Activity {
                 dialog.dismiss();
                 AlertDialog.Builder alert = new AlertDialog.Builder(DetailsChartActivity.this);
                 alert.setTitle(R.string.message).setMessage(R.string.retrieve_chart_network_issue);
-                alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                alert.setCancelable(false).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(getApplicationContext(), MyStocksActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
                 }).show();
