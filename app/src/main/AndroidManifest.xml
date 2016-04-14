@@ -47,7 +47,7 @@
             android:label="@string/widget_title">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.sam_chordas.android.stockhawk.ACTION_DATA_UPDATED"/>
+                <action android:name="com.sam_chordas.android.stockhawk.ACTION_DATA_UPDATED" />
             </intent-filter>
 
             <meta-data
@@ -69,6 +69,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sam_chordas.android.stockhawk.ui.MyStocksActivity" />
         </activity>
+
+        <receiver android:name=".AppQuoteWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.permission.BIND_REMOTEVIEWS"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_quote_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

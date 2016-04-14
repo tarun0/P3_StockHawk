@@ -31,4 +31,6 @@ Switch on the internet and try again.</string>
     <string name="progress_dialog_message">Fetching stock history data.</string>
     <string name="all_stocks_deleted">All stocks deleted. Nothing to show. Click on + button to add new stock.</string>
     <string name="no_history_data_available">Sorry! No history data for this stock is available on the server.</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
