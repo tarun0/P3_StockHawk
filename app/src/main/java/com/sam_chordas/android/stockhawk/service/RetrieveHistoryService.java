@@ -1,6 +1,6 @@
 package com.sam_chordas.android.stockhawk.service;
 
-import model.RequestModel;
+import com.sam_chordas.android.stockhawk.model.RequestModel;
 import retrofit.Callback;
 import retrofit.http.GET;
 

@@ -1,4 +1,4 @@
-package model;
+package com.sam_chordas.android.stockhawk.model;
 
 /**
  * Created by Tarun on 10/04/2016.

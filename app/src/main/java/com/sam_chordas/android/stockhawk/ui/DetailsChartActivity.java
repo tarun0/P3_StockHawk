@@ -18,8 +18,8 @@ import com.sam_chordas.android.stockhawk.service.RetrieveHistoryService;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Quote;
-import model.RequestModel;
+import com.sam_chordas.android.stockhawk.model.Quote;
+import com.sam_chordas.android.stockhawk.model.RequestModel;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -108,7 +108,7 @@ public class DetailsChartActivity extends Activity {
                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                    startActivity(intent);
                                }
-                           }) .show();
+                           }).show();
                 }
             }
 

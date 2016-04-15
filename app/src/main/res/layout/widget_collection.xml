@@ -7,7 +7,7 @@
     android:padding="@dimen/widget_margin">
 
     <FrameLayout
-        android:id="@+id/widget"
+        android:id="@+id/widgetQ"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
@@ -25,7 +25,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
         <ListView
-            android:id="@+id/widget_list"
+            android:id="@+id/widget_listQ"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"

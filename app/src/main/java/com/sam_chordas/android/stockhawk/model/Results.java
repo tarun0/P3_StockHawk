@@ -1,4 +1,4 @@
-package model;
+package com.sam_chordas.android.stockhawk.model;
 
 import java.util.ArrayList;
 
