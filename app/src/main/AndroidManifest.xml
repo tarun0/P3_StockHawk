@@ -60,6 +60,7 @@
         <receiver android:name=".widget.QuoteWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.sam_chordas.android.stockhawk.ACTION_DATA_UPDATED"/>
             </intent-filter>
 
             <meta-data

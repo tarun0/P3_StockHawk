@@ -10,9 +10,6 @@ import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Tarun on 15/04/2016.
  */
@@ -21,16 +18,6 @@ public class QuoteWidgetDataProvider implements RemoteViewsService.RemoteViewsFa
     Context mContext;
 
     Cursor mCursor;
-
-    List<String> list = new ArrayList<>();
-
-    void init() {
-        list.clear();
-        for (int i =0; i<10; i++) {
-            list.add(i+"!");
-        }
-    }
-
     public QuoteWidgetDataProvider(Context context, Intent intent) {
         this.mIntent = intent;
         this.mContext = context;
@@ -38,7 +25,7 @@ public class QuoteWidgetDataProvider implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public void onCreate() {
-        init();
+
     }
 
     @Override
@@ -82,8 +69,11 @@ public class QuoteWidgetDataProvider implements RemoteViewsService.RemoteViewsFa
             else {
                 remoteViews.setInt(R.id.change, "setBackgroundResource", R.drawable.percent_change_pill_red);
             }
-        }
 
+            Intent newIntent = new Intent();
+            newIntent.putExtra("symbol", mCursor.getString(symbolIndex));
+            remoteViews.setOnClickFillInIntent(R.id.widget_list_item, newIntent);
+        }
 
         return remoteViews;
     }
