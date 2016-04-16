@@ -72,7 +72,7 @@ public class QuoteWidgetDataProvider implements RemoteViewsService.RemoteViewsFa
 
             Intent newIntent = new Intent();
             newIntent.putExtra("symbol", mCursor.getString(symbolIndex));
-            remoteViews.setOnClickFillInIntent(R.id.widget_list_item, newIntent);
+            remoteViews.setOnClickFillInIntent(R.id.widget_list_item_layout, newIntent);
         }
 
         return remoteViews;
