@@ -9,7 +9,7 @@
     <string name="content_test">Search for a Stock Symbol</string>
     <string name="input_hint" translatable="false">FB</string>
     <string name="input_prefill"></string>
-    <string name="widget_title">1Today\'s Market</string>
+    <string name="widget_title">Today\'s Market</string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
 
     <!--Content Description related strings -->

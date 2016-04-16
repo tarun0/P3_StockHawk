@@ -35,8 +35,6 @@ public class QuoteWidget extends AppWidgetProvider {
         PendingIntent startActivityPendingIntent = PendingIntent.getActivity(context, 0, startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widget_list, startActivityPendingIntent);
 
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
-
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

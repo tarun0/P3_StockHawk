@@ -13,13 +13,13 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.sam_chordas.android.stockhawk.R;
+import com.sam_chordas.android.stockhawk.model.Quote;
+import com.sam_chordas.android.stockhawk.model.RequestModel;
 import com.sam_chordas.android.stockhawk.service.RetrieveHistoryService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sam_chordas.android.stockhawk.model.Quote;
-import com.sam_chordas.android.stockhawk.model.RequestModel;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -40,13 +40,14 @@ public class DetailsChartActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_chart);
         chart = (BarChart) findViewById(R.id.barchart);
+        intent = getIntent();
         try {
             getActionBar().setDisplayHomeAsUpEnabled(true);
+            getActionBar().setTitle(intent.getStringExtra("symbol"));
         }
         catch (NullPointerException e) {
             e.printStackTrace();
         }
-        intent = getIntent();
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setMessage(getString(R.string.progress_dialog_message));
         dialog.show();
@@ -55,16 +56,6 @@ public class DetailsChartActivity extends Activity {
                 .setEndpoint("https://query.yahooapis.com/v1/public")
                 .build();
 
-        /*try {
-            query1 = URLEncoder.encode("select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20%3D%20%22", "utf-8")
-                    + intent.getStringExtra("symbol") +
-                    URLEncoder.encode("%22%20and%20startDate%20%3D%20%222009-09-11%22%20and%20endDate%20%3D%20%222010-03-10%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=", "utf-8");
-
-            query = URLEncoder.encode("select * from yahoo.finance.historicaldata where symbol = \"YHOO\" and startDate = \"2009-09-11\" and endDate = \"2010-03-10\"", "utf-8");
-        }
-        catch (UnsupportedEncodingException i) {
-            i.printStackTrace();
-        }*/
         query = "select * from yahoo.finance.historicaldata where symbol = \'" +
                 intent.getStringExtra("symbol") +
                 "\' and startDate = \'2009-09-11\' and endDate = \'2010-03-10\'";
@@ -75,7 +66,7 @@ public class DetailsChartActivity extends Activity {
             public void success(RequestModel retrievedResponse, Response response) {
                 dialog.dismiss();
                 if (retrievedResponse.getQuery().getCount() > 0) {
-                    getActionBar().setTitle(retrievedResponse.getQuery().getResults().getQuote().get(0).getSymbol());
+
                     Toast.makeText(getApplicationContext(), R.string.pinch_to_zoom, Toast.LENGTH_SHORT).show();
                     int total = retrievedResponse.getQuery().getCount();
                     prices = new ArrayList<>();

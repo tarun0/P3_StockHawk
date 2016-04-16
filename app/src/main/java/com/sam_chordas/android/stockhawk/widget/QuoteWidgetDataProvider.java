@@ -72,7 +72,9 @@ public class QuoteWidgetDataProvider implements RemoteViewsService.RemoteViewsFa
 
             Intent newIntent = new Intent();
             newIntent.putExtra("symbol", mCursor.getString(symbolIndex));
-            remoteViews.setOnClickFillInIntent(R.id.widget_list_item_layout, newIntent);
+            // In setOnClickFillIntent method, the ID to be passed is of the Rootview
+            // of the layout passed in the remote view - above, i.e. rootview of the list_item_quote.
+            remoteViews.setOnClickFillInIntent(R.id.list_item_quote_rootview, newIntent);
         }
 
         return remoteViews;
