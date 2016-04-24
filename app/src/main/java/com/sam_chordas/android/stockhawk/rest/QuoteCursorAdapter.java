@@ -18,7 +18,6 @@ import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.touch_helper.ItemTouchHelperAdapter;
 import com.sam_chordas.android.stockhawk.touch_helper.ItemTouchHelperViewHolder;
-import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
 
 /**
  * Created by sam_chordas on 10/6/15.
@@ -87,7 +86,6 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
     
     if (c.getCount() == 1) {
       Toast.makeText(mContext, R.string.all_stocks_deleted, Toast.LENGTH_SHORT).show();
-      MyStocksActivity.hasSavedData = false;
     }
   }
 

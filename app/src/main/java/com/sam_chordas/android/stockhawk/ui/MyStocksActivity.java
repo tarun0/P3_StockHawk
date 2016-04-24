@@ -2,6 +2,7 @@ package com.sam_chordas.android.stockhawk.ui;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,8 +60,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
   private Context mContext;
   private Cursor mCursor;
   boolean isConnected;
-  public static boolean hasSavedData = true;
-
   public Context getContext() {
     return mContext;
   }
@@ -80,26 +80,23 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     mServiceIntent = new Intent(this, StockIntentService.class);
     if (savedInstanceState == null){
       // Run the initialize task service so that some stocks appear upon an empty database
+
       mServiceIntent.putExtra("tag", "init");
       if (isConnected){
+        ProgressDialog dialog = new ProgressDialog(mContext);
+        dialog.setMessage(getString(R.string.progress_dialog_message));
+        dialog.show();
+        Log.e("Order", "beforeStartingService");
         startService(mServiceIntent);
-      } else {
-        if (!hasSavedData) {
-          AlertDialog.Builder builder = new AlertDialog.Builder(MyStocksActivity.this);
-          builder.setMessage(R.string.no_data_or_internet);
-          builder.setTitle(R.string.message);
-          builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-              MyStocksActivity.this.finish();
-            }
-          }).create().show();
-        }
+        dialog.hide();
+        Log.e("Order", "AFTERStartingService");
       }
     }
     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
+
+    Log.e("Order", "AfterInitLoader");
 
     mCursorAdapter = new QuoteCursorAdapter(this, null);
     recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this,
@@ -188,6 +185,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
   @Override
   public void onResume() {
     super.onResume();
+
+    Log.e("Order", "beforeonResumeload");
     getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
   }
 
@@ -200,6 +199,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
     actionBar.setDisplayShowTitleEnabled(true);
     actionBar.setTitle(mTitle);
+
+    Log.e("Order", "AfterrestoreActionBar");
   }
 
   @Override
@@ -233,23 +234,45 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
   @Override
   public Loader<Cursor> onCreateLoader(int id, Bundle args){
     // This narrows the return to only the stocks that are most current.
+
+    Log.e("Order", "b4OncreateLoader");
     return new CursorLoader(this, QuoteProvider.Quotes.CONTENT_URI,
         new String[]{ QuoteColumns._ID, QuoteColumns.SYMBOL, QuoteColumns.BIDPRICE,
             QuoteColumns.PERCENT_CHANGE, QuoteColumns.CHANGE, QuoteColumns.ISUP},
         QuoteColumns.ISCURRENT + " = ?",
         new String[]{"1"},
         null);
+
   }
 
   @Override
   public void onLoadFinished(Loader<Cursor> loader, Cursor data){
     mCursorAdapter.swapCursor(data);
     mCursor = data;
+
+    if (!data.moveToFirst()) {
+      if (!isConnected) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MyStocksActivity.this);
+        builder.setMessage(R.string.no_data_or_internet);
+        builder.setTitle(R.string.message);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialogInterface, int i) {
+            MyStocksActivity.this.finish();
+          }
+        }).create().show();
+      }
+
+    }
+
+    Log.e("Order", "onLoaderFinished");
   }
 
   @Override
   public void onLoaderReset(Loader<Cursor> loader){
     mCursorAdapter.swapCursor(null);
+
+    Log.e("Order", "onLoaderreset");
   }
 
   boolean validateInput (CharSequence c) {
